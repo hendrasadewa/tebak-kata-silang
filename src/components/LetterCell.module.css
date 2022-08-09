@@ -1,0 +1,16 @@
+.cell {
+  border: 1px solid #333;
+  margin: 2px;
+  
+  color: #333;
+  font-size: 18px;
+  text-align: center;
+
+  height: 48px;
+  width: 48px;
+  padding: 2px;
+}
+
+.cell:disabled {
+  background: #333;
+}

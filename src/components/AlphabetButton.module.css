@@ -1,0 +1,32 @@
+.alphabetButton {
+  font-size: 18px;
+  text-align: center;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
+  border: none;
+
+  cursor: pointer;
+
+  margin: 8px;
+}
+
+.alphabetButton.initial {
+  background-color: gainsboro;
+  color: #333;
+}
+
+.alphabetButton.incorrect {
+  background-color: rgb(220, 20, 60);
+  color: #fefefe;
+}
+
+.alphabetButton.correct {
+  background-color: rgb(16, 165, 16);
+  color: #fefefe;
+}
+
+.alphabetButton:disabled {
+  cursor: not-allowed;
+}
