@@ -3,3 +3,7 @@ body {
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0px;
 }
+
+a {
+  text-decoration: none;
+}

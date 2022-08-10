@@ -1,37 +1,42 @@
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
 
 import Plane from '../components/Plane';
 
 import useGameState from '../hooks/useGameState';
-import { GameStatus } from '../types/Words';
 
 import styles from '../styles/Home.module.css';
 import GameKeyboard from '../components/GameKeyboard';
+import Indicators from '../components/Indicators';
 
 const Home: NextPage = () => {
   const [state, actions] = useGameState();
 
-  useEffect(() => {
-    if (state.status === GameStatus.lose) {
-      alert('Haha you lose');
-    }
-
-    if (state.status === GameStatus.win) {
-      alert('Haha you win');
-    }
-  }, [state.status]);
-
   return (
-    <div className={styles.gameContainer}>
-      <Plane values={state.userAnswer} />
-      <div className={styles.controlsContainer}>
-        <GameKeyboard
-          characterList={state.keyboard}
-          onCharacterClick={actions.onGameKeyboardClick}
-        />
-        <p>&copy; Hendra Sadewa</p>
-      </div>
+    <div>
+      <header>
+        <h1 className={styles.title}>Tebak Kata Silang</h1>
+      </header>
+      <main className={styles.gameContainer}>
+        <Plane values={state.userAnswer} />
+        <div className={styles.controlsContainer}>
+          <Indicators
+            chances={state.incorrectAnswerChances}
+            status={state.status}
+          />
+          <GameKeyboard
+            characterList={state.keyboard}
+            onCharacterClick={actions.onGameKeyboardClick}
+          />
+        </div>
+      </main>
+      <footer className={styles.footerContainer}>
+        &copy; Hendra Sadewa
+        <div className={styles.socialLinks}>
+          <a href="https://github.com/hendrasadewa">GitHub</a> &bull;
+          <a href="https://www.linkedin.com/in/hendra-sadewa/">LinkedIn</a> &bull;
+          <a href="https://saweria.co/hare">Saweria</a>
+        </div>
+      </footer>
     </div>
   );
 };
