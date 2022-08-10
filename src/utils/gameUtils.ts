@@ -1,4 +1,4 @@
-import { ALPHABET_ARRAY } from '../constants/gameConstants';
+import { ALPHABET_ARRAY, QWERTY_ARRAY } from '../constants/gameConstants';
 import { Answer, GameKeyboardState, GameKeyboardStatus } from '../types/Words';
 
 export function createInitialUserAnswer(answer: Answer) {
@@ -10,20 +10,24 @@ export function createInitialUserAnswer(answer: Answer) {
 }
 
 export function createGameKeyboard(
-  letters: string[] = ALPHABET_ARRAY
+  letters: string = QWERTY_ARRAY
 ): GameKeyboardState[] {
-  return letters.map((letter) => ({
-    letter: letter.toLowerCase(),
-    isDisabled: false,
-    status: GameKeyboardStatus.initial,
-  }));
+  return letters
+    .split('')
+    .map((word) => word.split('').map((letter) => letter))
+    .reduce((prev, curr) => [...prev, ...curr], [])
+    .map((letter) => ({
+      letter: letter.toLowerCase(),
+      isDisabled: false,
+      status: GameKeyboardStatus.initial,
+    }));
 }
 
 export function checkUserAnswer(
   correctAnswer: Answer,
   userAnswer: Answer,
   letter: string
-) {
+): Answer {
   return userAnswer.map((row, rowIndex) =>
     row.map((currentCell, columnIndex) => {
       if (currentCell === null) {
@@ -37,7 +41,7 @@ export function checkUserAnswer(
   );
 }
 
-export function checkChoice(answer: Answer, letter: string) {
+export function checkChoice(answer: Answer, letter: string): boolean {
   return answer.some((row) => row.join().indexOf(letter) >= 0);
 }
 
@@ -45,7 +49,7 @@ export function updateKeyboardValue(
   correctAnswer: Answer,
   keyboard: GameKeyboardState[],
   letter: string
-) {
+): GameKeyboardState[] {
   const isCorrect = checkChoice(correctAnswer, letter);
   return keyboard.map((value) => {
     if (value.letter === letter) {
@@ -61,7 +65,10 @@ export function updateKeyboardValue(
   });
 }
 
-export function compareGameAnswers(correctAnswer: Answer, userAnswer: Answer) {
+export function compareGameAnswers(
+  correctAnswer: Answer,
+  userAnswer: Answer
+): boolean {
   const joinUserAnswer = (row: (string | null)[]) =>
     row.filter((letter) => letter).join();
 
@@ -69,5 +76,4 @@ export function compareGameAnswers(correctAnswer: Answer, userAnswer: Answer) {
   const joinedUserAnswer = userAnswer.map(joinUserAnswer).join();
 
   return joinedCorrectAnswer === joinedUserAnswer;
-
 }

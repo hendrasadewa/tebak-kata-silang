@@ -2,14 +2,10 @@
   font-size: 18px;
   text-align: center;
 
-  width: 42px;
-  height: 42px;
   border-radius: 6px;
   border: none;
 
   cursor: pointer;
-
-  margin: 8px;
 }
 
 .alphabetButton.initial {

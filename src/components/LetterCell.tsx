@@ -1,21 +1,18 @@
-import { InputHTMLAttributes } from 'react';
 import styles from './LetterCell.module.css';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  columnIndex: number;
-  rowIndex: number;
+interface Props {
+  value: string;
+  disabled: boolean;
 }
 
-function LetterCell({ columnIndex, rowIndex, ...rest }: Props) {
-  return (
-    <input
-      className={styles.cell}
-      name={`${columnIndex}-${rowIndex}`}
-      maxLength={1}
-      type="text"
-      {...rest}
-    />
-  );
+function LetterCell({ value, disabled }: Props) {
+  const classNameList = [styles.cell];
+
+  if (disabled) {
+    classNameList.push(styles.disabledCell);
+  }
+
+  return <div className={classNameList.join(' ')}>{value}</div>;
 }
 
 export default LetterCell;
