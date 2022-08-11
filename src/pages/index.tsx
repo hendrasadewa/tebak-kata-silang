@@ -6,7 +6,7 @@ import useGameState from '../hooks/useGameState';
 
 import styles from '../styles/Home.module.css';
 import GameKeyboard from '../components/GameKeyboard';
-import Indicators from '../components/Indicators';
+import Help from '../components/Help';
 import Head from 'next/head';
 import Healthbar from '../components/Healthbar';
 
@@ -14,28 +14,32 @@ const Home: NextPage = () => {
   const [state, actions] = useGameState();
 
   return (
-    <div className='bg-slate-100 min-h-screen'>
+    <div className="bg-slate-100 min-h-screen flex flex-col h-screen justify-between">
       <Head>
         <title>Tebak Kata Silang | hendrasadewa</title>
         <meta name="description" content="Game tebak kata silang" />
       </Head>
-      <header className="px-4 mx-auto max-w-lg w-full pt-2 pb-4">
-        <h1 className="font-bold text-2xl text-center text-slate-700">Tebak Kata Silang</h1>
+      <header className="px-4 mx-auto max-w-lg w-full pt-2 pb-4 border-b border-b-slate-300 bg-slate-50">
+        <h1 className="font-bold text-2xl text-center text-slate-600">
+          Tebak Kata Silang
+        </h1>
       </header>
-      <main className="px-4 mx-auto max-w-lg w-full pt-2 pb-4">
+      <main className="px-4 mx-auto max-w-lg w-full pt-2 pb-4 h-full flex flex-col justify-between">
         <div className="flex justify-between items-center w-full">
-          <Indicators status={state.status} />
+          <Help />
           <Healthbar chances={state.incorrectAnswerChances} />
         </div>
         <div className="py-2 flex items-center justify-center w-full">
           <Plane values={state.userAnswer} />
         </div>
-        <GameKeyboard
-          characterList={state.keyboard}
-          onCharacterClick={actions.onGameKeyboardClick}
-        />
+        <div>
+          <GameKeyboard
+            characterList={state.keyboard}
+            onCharacterClick={actions.onGameKeyboardClick}
+          />
+        </div>
       </main>
-      <footer className={styles.footerContainer}>
+      <footer className="bg-slate-700 flex items-center flex-col text-slate-100 py-4">
         &copy; Hendra Sadewa
         <div className={styles.socialLinks}>
           <a href="https://github.com/hendrasadewa">GitHub</a> &bull;
