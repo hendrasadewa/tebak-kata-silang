@@ -8,7 +8,7 @@ interface Props {
 
 function GameKeyboard({ characterList, onCharacterClick }: Props) {
   return (
-    <div className="grid grid-cols-10 w-full gap-1 px-2">
+    <div className="grid grid-cols-10 w-full gap-1">
       {characterList.map((value) => (
         <AlphabetButton
           key={`button-${value.letter}`}

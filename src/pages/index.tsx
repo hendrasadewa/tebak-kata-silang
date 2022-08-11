@@ -8,25 +8,28 @@ import styles from '../styles/Home.module.css';
 import GameKeyboard from '../components/GameKeyboard';
 import Indicators from '../components/Indicators';
 import Head from 'next/head';
+import Healthbar from '../components/Healthbar';
 
 const Home: NextPage = () => {
   const [state, actions] = useGameState();
 
   return (
-    <div>
+    <div className='bg-slate-100'>
       <Head>
         <title>Tebak Kata Silang | hendrasadewa</title>
         <meta name="description" content="Game tebak kata silang" />
       </Head>
-      <header>
-        <h1 className={styles.title}>Tebak Kata Silang</h1>
+      <header className="px-4 mx-auto max-w-lg w-full pt-2 pb-4">
+        <h1 className="font-bold text-2xl text-center text-slate-700">Tebak Kata Silang</h1>
       </header>
-      <main className={styles.gameContainer}>
-        <Plane values={state.userAnswer} />
-        <Indicators
-          chances={state.incorrectAnswerChances}
-          status={state.status}
-        />
+      <main className="px-4 mx-auto max-w-lg w-full pt-2 pb-4">
+        <div className="flex justify-between items-center w-full">
+          <Indicators status={state.status} />
+          <Healthbar chances={state.incorrectAnswerChances} />
+        </div>
+        <div className="py-2">
+          <Plane values={state.userAnswer} />
+        </div>
         <GameKeyboard
           characterList={state.keyboard}
           onCharacterClick={actions.onGameKeyboardClick}
