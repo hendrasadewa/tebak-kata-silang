@@ -1,21 +1,17 @@
 import { useState } from 'react';
 import { Answer } from '../types/Words';
 import LetterCell from './LetterCell';
-import styles from './Plane.module.css';
 
 interface Props {
   values: Answer;
 }
 
 function Plane({ values }: Props) {
-  const rows = values.length;
-  const columns = values.length > 0 ? values[0].length : 0;
+  const row = values.length;
+  const col = values.length > 0 ? values[0].length : 0;
 
   return (
-    <div className={styles.plane} style={{
-      gridTemplateRows: `repeat(${rows}, 1fr)`,
-      gridTemplateColumns: `repeat(${columns}, 1fr)`,
-    }}>
+    <div className={`grid grid-rows-${row} grid-cols-${col}`}>
       {values.map((row, rowIndex) =>
         row.map((cell, columnIndex) => (
           <LetterCell
