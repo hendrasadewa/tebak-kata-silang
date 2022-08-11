@@ -4,7 +4,7 @@ interface Props {
 
 function WinModal({ onClose }: Props) {
   const template = {
-    text: 'Saya berhasil menyelesaikan soal hari ini di #TebakKataSilang - @sadevva_',
+    text: `Saya berhasil menyelesaikan soal hari ini di #TebakKataSilang, mainkan di ${window.location.href} - @sadevva_`,
   };
   const url = new URL('https://twitter.com/intent/tweet');
   url.search = new URLSearchParams(template).toString();
@@ -13,8 +13,10 @@ function WinModal({ onClose }: Props) {
     <div>
       <div className="mt-2 flex flex-col gap-4">
         <p>Selamat, Kamu berhasil menebak seluruh kata yang ada! </p>
-        <p>Bagikan hasil ini
-        ke twitter, dan mari kembali esok hari untuk soal yang lebih menantang</p>
+        <p>
+          Bagikan hasil ini ke twitter, dan mari kembali esok hari untuk soal
+          yang lebih menantang
+        </p>
       </div>
 
       <div className="mt-4 flex gap-2 justify-end">
