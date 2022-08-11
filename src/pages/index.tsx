@@ -23,16 +23,14 @@ const Home: NextPage = () => {
       </header>
       <main className={styles.gameContainer}>
         <Plane values={state.userAnswer} />
-        <div className={styles.controlsContainer}>
-          <Indicators
-            chances={state.incorrectAnswerChances}
-            status={state.status}
-          />
-          <GameKeyboard
-            characterList={state.keyboard}
-            onCharacterClick={actions.onGameKeyboardClick}
-          />
-        </div>
+        <Indicators
+          chances={state.incorrectAnswerChances}
+          status={state.status}
+        />
+        <GameKeyboard
+          characterList={state.keyboard}
+          onCharacterClick={actions.onGameKeyboardClick}
+        />
       </main>
       <footer className={styles.footerContainer}>
         &copy; Hendra Sadewa

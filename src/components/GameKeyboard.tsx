@@ -1,6 +1,5 @@
 import { GameKeyboardState } from '../types/Words';
 import AlphabetButton from './AlphabetButton';
-import classNames from './GameKeyboard.module.css';
 
 interface Props {
   characterList: GameKeyboardState[];
@@ -9,7 +8,7 @@ interface Props {
 
 function GameKeyboard({ characterList, onCharacterClick }: Props) {
   return (
-    <div className={classNames.gameKeyboard}>
+    <div className="grid grid-cols-10 w-full gap-1 px-2">
       {characterList.map((value) => (
         <AlphabetButton
           key={`button-${value.letter}`}
