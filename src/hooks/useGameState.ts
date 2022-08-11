@@ -1,7 +1,7 @@
 import { useImmerReducer } from 'use-immer';
 import {
+  ALPHABET_ARRAY,
   MAX_INCORRECT_ANSWER_CHANCES,
-  QWERTY_ARRAY,
 } from '../constants/gameConstants';
 
 import { Answer, GameKeyboardState, GameStatus } from '../types/Words';
@@ -30,7 +30,7 @@ const initialState: GameState = {
   incorrectAnswerChances: MAX_INCORRECT_ANSWER_CHANCES,
   correctAnswer: mockAnswer,
   userAnswer: createInitialUserAnswer(mockAnswer),
-  keyboard: createGameKeyboard(QWERTY_ARRAY),
+  keyboard: createGameKeyboard(ALPHABET_ARRAY),
 };
 
 type GameStateAction = {
