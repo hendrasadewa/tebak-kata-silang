@@ -9,9 +9,10 @@ interface Props {
 function Plane({ values }: Props) {
   const row = values.length;
   const col = values.length > 0 ? values[0].length : 0;
+  const templateClassName = `grid gap-0.5 grid-rows-${row} grid-cols-${col} w-fit`;
 
   return (
-    <div className={`grid grid-rows-${row} grid-cols-${col}`}>
+    <div className={templateClassName}>
       {values.map((row, rowIndex) =>
         row.map((cell, columnIndex) => (
           <LetterCell

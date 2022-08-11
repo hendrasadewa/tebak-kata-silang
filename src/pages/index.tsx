@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const [state, actions] = useGameState();
 
   return (
-    <div className='bg-slate-100'>
+    <div className='bg-slate-100 min-h-screen'>
       <Head>
         <title>Tebak Kata Silang | hendrasadewa</title>
         <meta name="description" content="Game tebak kata silang" />
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
           <Indicators status={state.status} />
           <Healthbar chances={state.incorrectAnswerChances} />
         </div>
-        <div className="py-2">
+        <div className="py-2 flex items-center justify-center w-full">
           <Plane values={state.userAnswer} />
         </div>
         <GameKeyboard
