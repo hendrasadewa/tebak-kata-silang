@@ -9,9 +9,16 @@ import GameKeyboard from '../components/GameKeyboard';
 import Help from '../components/Help';
 import Head from 'next/head';
 import Healthbar from '../components/Healthbar';
+import HelpModal from '../components/HelpModal';
+import { useState } from 'react';
 
 const Home: NextPage = () => {
   const [state, actions] = useGameState();
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
+  const modalTrigger = () => {
+    setModalOpen(!isModalOpen);
+  };
 
   return (
     <div className="bg-slate-100 min-h-screen flex flex-col h-screen justify-between">
@@ -19,6 +26,7 @@ const Home: NextPage = () => {
         <title>Tebak Kata Silang | hendrasadewa</title>
         <meta name="description" content="Game tebak kata silang" />
       </Head>
+      <HelpModal isOpen={isModalOpen} onClose={modalTrigger} />
       <header className="px-4 mx-auto max-w-lg w-full pt-2 pb-4 border-b border-b-slate-300 bg-slate-50">
         <h1 className="font-bold text-2xl text-center text-slate-600">
           Tebak Kata Silang
@@ -26,7 +34,7 @@ const Home: NextPage = () => {
       </header>
       <main className="px-4 mx-auto max-w-lg w-full pt-2 pb-4 h-full flex flex-col justify-between">
         <div className="flex justify-between items-center w-full">
-          <Help />
+          <Help onClick={modalTrigger} />
           <Healthbar chances={state.incorrectAnswerChances} />
         </div>
         <div className="py-2 flex items-center justify-center w-full">

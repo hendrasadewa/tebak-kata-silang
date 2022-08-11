@@ -1,6 +1,14 @@
-function Help() {
+interface Props {
+  onClick: () => void;
+}
+
+function Help({ onClick }: Props) {
   return (
-    <div className="text-slate-500 flex items-center gap-1">
+    <button
+      className="text-slate-500 flex items-center gap-1"
+      onClick={onClick}
+      type="button"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-5 w-5"
@@ -14,7 +22,7 @@ function Help() {
         />
       </svg>
       <p>Cara bermain</p>
-    </div>
+    </button>
   );
 }
 
