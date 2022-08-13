@@ -12,8 +12,17 @@ export enum GameModals {
   lose = 'loseModal',
 }
 
+export enum GameResult {
+  lose = 'lose',
+  win = 'win',
+  noresult = 'noresult',
+}
+
 export enum GameStatus {
+  initial = 'initial',
   started = 'started',
+  onprogress = 'onprogress',
+  stopped = 'stopped',
   lose = 'lose',
   win = 'win',
 }

@@ -7,7 +7,7 @@ import GameTemplate from '../components/GameTemplate';
 
 import useGameState from '../hooks/useGameState';
 
-import { GameModals, GameStatus } from '../types/Words';
+import { GameModals, GameResult, GameStatus } from '../types/Words';
 
 import { MODALS } from '../constants/gameConstants';
 
@@ -31,15 +31,15 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    if (state.status === GameStatus.lose) {
+    if (state.result === GameResult.lose) {
       setGameModal(GameModals.lose);
       setModalOpen(true);
     }
-    if (state.status === GameStatus.win) {
+    if (state.result === GameResult.win) {
       setGameModal(GameModals.win);
       setModalOpen(true);
     }
-  }, [state.status]);
+  }, [state.result]);
 
   return (
     <div className="bg-slate-100 min-h-screen flex flex-col h-screen justify-between">

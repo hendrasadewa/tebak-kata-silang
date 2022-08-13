@@ -1,5 +1,10 @@
 import { ALPHABET_ARRAY, QWERTY_ARRAY } from '../constants/gameConstants';
-import { Answer, GameKeyboardState, GameKeyboardStatus } from '../types/Words';
+import {
+  Answer,
+  GameKeyboardState,
+  GameKeyboardStatus,
+  GameResult,
+} from '../types/Words';
 
 export function createInitialUserAnswer(answer: Answer) {
   return [...Array(answer.length)].map((_, rowIndex) =>
@@ -76,4 +81,18 @@ export function compareGameAnswers(
   const joinedUserAnswer = userAnswer.map(joinUserAnswer).join();
 
   return joinedCorrectAnswer === joinedUserAnswer;
+}
+
+export function getGameResult(
+  correctAnswer: Answer,
+  userAnswer: Answer,
+  chances: number
+) {
+  const isUserAnswersCorrect = compareGameAnswers(correctAnswer, userAnswer);
+  if (isUserAnswersCorrect) {
+    return GameResult.win;
+  } else if (chances <= 0) {
+    return GameResult.lose;
+  }
+  return GameResult.noresult;
 }

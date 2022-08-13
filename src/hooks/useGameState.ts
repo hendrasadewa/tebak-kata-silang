@@ -4,14 +4,19 @@ import {
   MAX_INCORRECT_ANSWER_CHANCES,
 } from '../constants/gameConstants';
 
-import { Answer, GameKeyboardState, GameStatus } from '../types/Words';
+import {
+  Answer,
+  GameKeyboardState,
+  GameResult,
+  GameStatus,
+} from '../types/Words';
 
 import {
   checkChoice,
   checkUserAnswer,
-  compareGameAnswers,
   createGameKeyboard,
   createInitialUserAnswer,
+  getGameResult,
   updateKeyboardValue,
 } from '../utils/gameUtils';
 
@@ -19,6 +24,7 @@ import { mockAnswer } from '../__mocks__/useGameState.mock';
 
 interface GameState {
   status: GameStatus;
+  result: GameResult;
   incorrectAnswerChances: number;
   correctAnswer: Answer;
   userAnswer: Answer;
@@ -26,7 +32,8 @@ interface GameState {
 }
 
 const initialState: GameState = {
-  status: GameStatus.started,
+  status: GameStatus.initial,
+  result: GameResult.noresult,
   incorrectAnswerChances: MAX_INCORRECT_ANSWER_CHANCES,
   correctAnswer: mockAnswer,
   userAnswer: createInitialUserAnswer(mockAnswer),
@@ -58,20 +65,24 @@ function reducer(draft: GameState = initialState, action: GameStateAction) {
         action.payload.letter
       );
 
-      const status = compareGameAnswers(draft.correctAnswer, draft.userAnswer)
-        ? GameStatus.win
-        : chances <= 0
-        ? GameStatus.lose
-        : GameStatus.started;
+      const result = getGameResult(
+        draft.correctAnswer,
+        draft.userAnswer,
+        chances
+      );
 
-      if (status === GameStatus.win || status === GameStatus.lose) {
+      const shouldGameStop = result !== GameResult.noresult;
+
+      if (shouldGameStop) {
+        draft.result = result;
         draft.keyboard = draft.keyboard.map((item) => ({
           ...item,
           isDisabled: true,
         }));
+        draft.status = shouldGameStop
+          ? GameStatus.onprogress
+          : GameStatus.stopped;
       }
-
-      draft.status = status;
       break;
   }
 }
