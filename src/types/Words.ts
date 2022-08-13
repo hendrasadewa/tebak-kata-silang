@@ -6,10 +6,16 @@ export enum GameKeyboardStatus {
   incorrect = 'incorrect',
 }
 
+export enum GameModals {
+  help = 'helpModal',
+  win = 'winModal',
+  lose = 'loseModal',
+}
+
 export enum GameStatus {
   started = 'started',
   lose = 'lose',
-  win = 'win'
+  win = 'win',
 }
 
 export type GameKeyboardState = {

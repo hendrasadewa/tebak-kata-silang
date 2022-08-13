@@ -1,42 +1,47 @@
 import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
 
 import Plane from '../components/Plane';
+import GameKeyboard from '../components/GameKeyboard';
+import Help from '../components/Help';
+import Healthbar from '../components/Healthbar';
+import HelpModal from '../components/HelpModal';
+import BaseModal from '../components/BaseModal';
+import LoseModal from '../components/LoseModal';
+import WinModal from '../components/WinModal';
 
 import useGameState from '../hooks/useGameState';
 
+import { GameModals, GameStatus } from '../types/Words';
+
+import { MODALS } from '../constants/gameConstants';
+
 import styles from '../styles/Home.module.css';
-import GameKeyboard from '../components/GameKeyboard';
-import Help from '../components/Help';
-import Head from 'next/head';
-import Healthbar from '../components/Healthbar';
-import HelpModal from '../components/HelpModal';
-import { useEffect, useState } from 'react';
-import BaseModal from '../components/BaseModal';
-import LoseModal from '../components/LoseModal';
-import { GameStatus } from '../types/Words';
-import WinModal from '../components/WinModal';
 
 const Home: NextPage = () => {
   const [state, actions] = useGameState();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [modalTitle, setModalTitle] = useState<string>('Cara Bermain');
+  const [gameModal, setGameModal] = useState<GameModals>(GameModals.help);
+
+  const modaltitle: string = MODALS[gameModal].title;
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
   const handleOpenHowtoPlay = () => {
-    setModalTitle('Cara Bermain');
+    setGameModal(GameModals.help);
     setModalOpen(true);
   };
 
   useEffect(() => {
     if (state.status === GameStatus.lose) {
-      setModalTitle('Kalah');
+      setGameModal(GameModals.lose);
       setModalOpen(true);
     }
     if (state.status === GameStatus.win) {
-      setModalTitle('Menang');
+      setGameModal(GameModals.win);
       setModalOpen(true);
     }
   }, [state.status]);
@@ -48,14 +53,10 @@ const Home: NextPage = () => {
         <meta name="description" content="Game tebak kata silang" />
       </Head>
 
-      <BaseModal isOpen={isModalOpen} onClose={closeModal} title={modalTitle}>
-        {modalTitle === 'Cara Bermain' && <HelpModal onClose={closeModal} />}
-        {modalTitle === 'Kalah' && (
-          <LoseModal onClose={closeModal} />
-        )}
-        {modalTitle === 'Menang' && (
-          <WinModal onClose={closeModal} />
-        )}
+      <BaseModal isOpen={isModalOpen} onClose={closeModal} title={modaltitle}>
+        {gameModal === GameModals.help && <HelpModal onClose={closeModal} />}
+        {gameModal === GameModals.lose && <LoseModal onClose={closeModal} />}
+        {gameModal === GameModals.win && <WinModal onClose={closeModal} />}
       </BaseModal>
       <header className="px-4 mx-auto max-w-lg w-full pt-2 pb-4 border-b border-b-slate-300 bg-slate-50">
         <h1 className="font-bold text-2xl text-center text-slate-600">
