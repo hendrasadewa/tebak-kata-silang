@@ -27,13 +27,17 @@ const Home: NextPage = () => {
         <meta name="description" content="Game tebak kata silang" />
       </Head>
       <Header />
-      <GameTemplate
-        incorrectAnswerChances={gameState.incorrectAnswerChances}
-        keyboard={gameState.keyboard}
-        onGameKeyboardClick={gameActions.onGameKeyboardClick}
-        onHowtoPlayClick={handleOpenHowtoPlay}
-        userAnswer={gameState.userAnswer}
-      />
+      {gameState.userAnswer ? (
+        <GameTemplate
+          incorrectAnswerChances={gameState.chances}
+          keyboard={gameState.keyboard}
+          onGameKeyboardClick={gameActions.handleUserAnswer}
+          onHowtoPlayClick={handleOpenHowtoPlay}
+          userAnswer={gameState.userAnswer}
+        />
+      ) : (
+        <div>loading</div>
+      )}
       <Footer />
       <GameModalsController
         isOpen={modalState.isModalOpen}

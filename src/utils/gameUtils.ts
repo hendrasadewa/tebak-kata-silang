@@ -14,19 +14,6 @@ export function createInitialUserAnswer(answer: Answer) {
   );
 }
 
-export function createGameKeyboard(
-  letters: string = QWERTY_ARRAY
-): GameKeyboardState[] {
-  return letters
-    .split('')
-    .map((word) => word.split('').map((letter) => letter))
-    .reduce((prev, curr) => [...prev, ...curr], [])
-    .map((letter) => ({
-      letter: letter.toLowerCase(),
-      isDisabled: false,
-      status: GameKeyboardStatus.initial,
-    }));
-}
 
 export function checkUserAnswer(
   correctAnswer: Answer,
