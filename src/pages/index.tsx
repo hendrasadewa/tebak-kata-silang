@@ -13,22 +13,33 @@ import { Answer, GameModals } from '../types/Words';
 import useModalState from '../hooks/useModalState';
 import { mockAnswer } from '../__mocks__/useGameState.mock';
 import { ALPHABET_ARRAY } from '../constants/gameConstants';
+import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
 
 export async function getStaticProps() {
   return {
     // temporary
-    props: { answer: mockAnswer, keyboardLayout: ALPHABET_ARRAY },
+    props: {
+      answer: mockAnswer,
+      keyboardLayout: ALPHABET_ARRAY,
+      gameid: nanoid(),
+    },
   };
 }
 
 interface Props {
   answer: Answer;
   keyboardLayout: string;
+  gameid: string;
 }
 
-const Home: NextPage<Props> = ({ answer, keyboardLayout }) => {
+const Home: NextPage<Props> = ({ answer, keyboardLayout, gameid }) => {
   const [gameState, gameActions] = useGameState(answer, keyboardLayout);
   const [modalState, modalActions] = useModalState(gameState.result);
+
+  useEffect(() => {
+    window.localStorage.setItem('gameid', gameid)
+  }, [])
 
   const handleOpenHowtoPlay = () => {
     modalActions.openModal(GameModals.help);
