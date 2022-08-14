@@ -1,45 +1,24 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import GameModalsController from '../components/GameModalsController';
 import GameTemplate from '../components/GameTemplate';
-
-import useGameState from '../hooks/useGameState';
-
-import { GameModals, GameResult, GameStatus } from '../types/Words';
-
-import { MODALS } from '../constants/gameConstants';
-
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+import useGameState from '../hooks/useGameState';
+
+import { GameModals } from '../types/Words';
+
+import useModalState from '../hooks/useModalState';
+
 const Home: NextPage = () => {
-  const [state, actions] = useGameState();
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [gameModal, setGameModal] = useState<GameModals>(GameModals.help);
-
-  const modaltitle: string = MODALS[gameModal].title;
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const [gameState, gameActions] = useGameState();
+  const [modalState, modalActions] = useModalState(gameState.result);
 
   const handleOpenHowtoPlay = () => {
-    setGameModal(GameModals.help);
-    setModalOpen(true);
+    modalActions.openModal(GameModals.help);
   };
-
-  useEffect(() => {
-    if (state.result === GameResult.lose) {
-      setGameModal(GameModals.lose);
-      setModalOpen(true);
-    }
-    if (state.result === GameResult.win) {
-      setGameModal(GameModals.win);
-      setModalOpen(true);
-    }
-  }, [state.result]);
 
   return (
     <div className="bg-slate-100 min-h-screen flex flex-col h-screen justify-between">
@@ -47,21 +26,20 @@ const Home: NextPage = () => {
         <title>Tebak Kata Silang | hendrasadewa</title>
         <meta name="description" content="Game tebak kata silang" />
       </Head>
-
       <Header />
       <GameTemplate
-        incorrectAnswerChances={state.incorrectAnswerChances}
-        keyboard={state.keyboard}
-        onGameKeyboardClick={actions.onGameKeyboardClick}
+        incorrectAnswerChances={gameState.incorrectAnswerChances}
+        keyboard={gameState.keyboard}
+        onGameKeyboardClick={gameActions.onGameKeyboardClick}
         onHowtoPlayClick={handleOpenHowtoPlay}
-        userAnswer={state.userAnswer}
+        userAnswer={gameState.userAnswer}
       />
       <Footer />
       <GameModalsController
-        isOpen={isModalOpen}
-        modalType={gameModal}
-        onClose={closeModal}
-        title={modaltitle}
+        isOpen={modalState.isModalOpen}
+        modalType={modalState.modalType}
+        onClose={modalActions.closeModal}
+        title={modalState.modalTitle}
       />
     </div>
   );
