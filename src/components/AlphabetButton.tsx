@@ -32,13 +32,14 @@ function AlphabetButton({ isDisabled, letter, status, onClick }: Props) {
   }
 
   return (
-    <motion.div
+    <motion.button
       className={className.join(' ')}
       whileHover={
         !isDisabled
           ? {
-              y: -2,
-              z: 4,
+              y: -3,
+              z: 2,
+              scale: 1.1,
             }
           : {}
       }
@@ -46,15 +47,11 @@ function AlphabetButton({ isDisabled, letter, status, onClick }: Props) {
       initial={{
         y: 0,
       }}
+      onClick={handleClick}
+      disabled={isDisabled}
     >
-      <button
-        className="flex items-center justify-center w-full h-full"
-        onClick={handleClick}
-        disabled={isDisabled}
-      >
-        {letter}
-      </button>
-    </motion.div>
+      {letter}
+    </motion.button>
   );
 }
 
