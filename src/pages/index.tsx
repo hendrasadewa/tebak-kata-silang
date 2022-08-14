@@ -8,12 +8,26 @@ import Footer from '../components/Footer';
 
 import useGameState from '../hooks/useGameState';
 
-import { GameModals } from '../types/Words';
+import { Answer, GameModals } from '../types/Words';
 
 import useModalState from '../hooks/useModalState';
+import { mockAnswer } from '../__mocks__/useGameState.mock';
+import { ALPHABET_ARRAY } from '../constants/gameConstants';
 
-const Home: NextPage = () => {
-  const [gameState, gameActions] = useGameState();
+export async function getStaticProps() {
+  return {
+    // temporary
+    props: { answer: mockAnswer, keyboardLayout: ALPHABET_ARRAY },
+  };
+}
+
+interface Props {
+  answer: Answer;
+  keyboardLayout: string;
+}
+
+const Home: NextPage<Props> = ({ answer, keyboardLayout }) => {
+  const [gameState, gameActions] = useGameState(answer, keyboardLayout);
   const [modalState, modalActions] = useModalState(gameState.result);
 
   const handleOpenHowtoPlay = () => {
@@ -36,7 +50,9 @@ const Home: NextPage = () => {
           userAnswer={gameState.userAnswer}
         />
       ) : (
-        <div>loading</div>
+        <main className="px-4 mx-auto max-w-lg w-full pt-2 pb-4 h-full flex flex-col items-center justify-between">
+          <div>loading ...</div>
+        </main>
       )}
       <Footer />
       <GameModalsController

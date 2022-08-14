@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
 
-import { ALPHABET_ARRAY } from '../constants/gameConstants';
-
 import gameReducer, {
   gameActions,
   gameInitialState,
@@ -15,11 +13,9 @@ import keyboardReducer, {
   KeyboardState,
 } from '../store/keyboardReducer';
 
-import { GameResult } from '../types/Words';
+import { Answer, GameResult, GameStatus } from '../types/Words';
 
 import { checkChoice, compareGameAnswers } from '../utils/gameUtils';
-
-import { mockAnswer } from '../__mocks__/useGameState.mock';
 
 interface State extends GameState, KeyboardState {}
 
@@ -30,7 +26,7 @@ type ReturnType = [
   }
 ];
 
-function useGameState(): ReturnType {
+function useGameState(answer: Answer, keyboardLayout: string): ReturnType {
   // reducers
   const [keyboardState, keyboardDispatch] = useImmerReducer(
     keyboardReducer,
@@ -43,17 +39,18 @@ function useGameState(): ReturnType {
 
   // states
   const { correctAnswer, chances, userAnswer } = gameState;
-  
 
   // state changes listeners
   useEffect(() => {
     if (!correctAnswer || !userAnswer) {
-      gameDispatch(gameActions.loadAnswer(mockAnswer));
-      keyboardDispatch(keyboardActions.loadKeyboard(ALPHABET_ARRAY));
+      gameDispatch(gameActions.loadAnswer(answer));
+      keyboardDispatch(keyboardActions.loadKeyboard(keyboardLayout));
     }
   }, [
     keyboardDispatch,
     gameDispatch,
+    answer,
+    keyboardLayout,
     userAnswer,
     correctAnswer,
   ]);
@@ -64,7 +61,7 @@ function useGameState(): ReturnType {
       keyboardDispatch(keyboardActions.disableKeyboard());
       return;
     }
-  }, [gameDispatch, keyboardDispatch, chances])
+  }, [gameDispatch, keyboardDispatch, chances]);
 
   useEffect(() => {
     if (!correctAnswer || !userAnswer) {
@@ -75,8 +72,7 @@ function useGameState(): ReturnType {
     if (isAnswerComplete) {
       gameDispatch(gameActions.setResult(GameResult.win));
     }
-  }, [gameDispatch, keyboardDispatch, chances, correctAnswer, userAnswer])
-
+  }, [gameDispatch, keyboardDispatch, chances, correctAnswer, userAnswer]);
 
   // event handlers
   const handleUserAnswer = (letter: string) => {
