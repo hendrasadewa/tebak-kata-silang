@@ -73,6 +73,7 @@ const Home: NextPage<Props> = ({ answer, keyboardLayout, gameid }) => {
         title={modalState.modalTitle}
         startTime={gameState.startTime}
         stopTime={gameState.stopTime}
+        chances={gameState.chances}
       />
     </div>
   );

@@ -4,15 +4,16 @@ interface Props {
   onClose: () => void;
   startTime?: Date;
   stopTime?: Date;
+  chances: number;
 }
 
-function WinModal({ onClose, startTime, stopTime }: Props) {
+function WinModal({ onClose, startTime, stopTime, chances }: Props) {
   const diffSec = dayjs(stopTime).diff(startTime, 's');
 
   const timeMessage = `⏱ ${Math.floor(diffSec / 60)} menit, ${diffSec} detik`;
-
+  const chanceMessage = `Sisa kesempatan: ${chances}`;
   const template = {
-    text: `Saya berhasil menyelesaikan soal hari ini di #TebakKataSilang ${timeMessage}, mainkan di ${window.location.href} - @sadevva_`,
+    text: `Saya berhasil menyelesaikan soal hari ini di #TebakKataSilang ${timeMessage} dan ${chanceMessage}, mainkan di ${window.location.href} - @sadevva_`,
   };
   const url = new URL('https://twitter.com/intent/tweet');
   url.search = new URLSearchParams(template).toString();

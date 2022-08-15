@@ -11,6 +11,7 @@ interface Props {
   modalType: GameModals;
   startTime?: Date;
   stopTime?: Date;
+  chances: number;
   onClose: () => void;
 }
 
@@ -21,13 +22,14 @@ function GameModalsController({
   modalType,
   startTime,
   stopTime,
+  chances
 }: Props) {
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} title={title}>
       {modalType === GameModals.help && <HelpModal onClose={onClose} />}
       {modalType === GameModals.lose && <LoseModal onClose={onClose} />}
       {modalType === GameModals.win && (
-        <WinModal onClose={onClose} startTime={startTime} stopTime={stopTime} />
+        <WinModal onClose={onClose} startTime={startTime} stopTime={stopTime} chances={chances} />
       )}
     </BaseModal>
   );
