@@ -39,7 +39,7 @@ const Home: NextPage<Props> = ({ answer, keyboardLayout, gameid }) => {
 
   useEffect(() => {
     window.localStorage.setItem('gameid', gameid)
-  }, [])
+  }, [gameid])
 
   const handleOpenHowtoPlay = () => {
     modalActions.openModal(GameModals.help);
