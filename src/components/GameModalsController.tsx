@@ -7,17 +7,28 @@ import WinModal from './WinModal';
 
 interface Props {
   isOpen: boolean;
-  onClose: () => void;
   title: string;
   modalType: GameModals;
+  startTime?: Date;
+  stopTime?: Date;
+  onClose: () => void;
 }
 
-function GameModalsController({ isOpen, onClose, title, modalType }: Props) {
+function GameModalsController({
+  isOpen,
+  onClose,
+  title,
+  modalType,
+  startTime,
+  stopTime,
+}: Props) {
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} title={title}>
       {modalType === GameModals.help && <HelpModal onClose={onClose} />}
       {modalType === GameModals.lose && <LoseModal onClose={onClose} />}
-      {modalType === GameModals.win && <WinModal onClose={onClose} />}
+      {modalType === GameModals.win && (
+        <WinModal onClose={onClose} startTime={startTime} stopTime={stopTime} />
+      )}
     </BaseModal>
   );
 }

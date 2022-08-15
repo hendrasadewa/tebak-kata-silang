@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
+    "dayjs": "^1.11.5",
     "framer-motion": "^7.1.0",
     "immer": "^9.0.15",
     "nanoid": "^4.0.0",

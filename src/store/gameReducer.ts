@@ -10,6 +10,8 @@ export interface GameState {
   chances: number;
   correctAnswer?: Answer;
   userAnswer?: Answer;
+  startTime?: Date;
+  stopTime?: Date;
 }
 
 export const gameInitialState: GameState = {
@@ -18,6 +20,8 @@ export const gameInitialState: GameState = {
   chances: MAX_INCORRECT_ANSWER_CHANCES,
   correctAnswer: undefined,
   userAnswer: undefined,
+  startTime: undefined,
+  stopTime: undefined,
 };
 
 type GameAction =
@@ -40,6 +44,7 @@ function gameReducer(draft: GameState = gameInitialState, action: GameAction) {
       draft.correctAnswer = action.payload.correctAnswer;
       draft.userAnswer = createInitialUserAnswer(action.payload.correctAnswer);
       draft.status = GameStatus.started;
+      draft.startTime = new Date();
       break;
 
     case 'game_user_answer':
@@ -68,10 +73,12 @@ function gameReducer(draft: GameState = gameInitialState, action: GameAction) {
 
     case 'game_set_result':
       draft.result = action.payload.result;
-      draft.status =
-        action.payload.result !== GameResult.noresult
-          ? GameStatus.stopped
-          : GameStatus.onprogress;
+      if (action.payload.result !== GameResult.noresult) {
+        draft.status = GameStatus.stopped;
+        draft.stopTime = new Date();
+      } else {
+        draft.status = GameStatus.onprogress;
+      }
       break;
   }
 }

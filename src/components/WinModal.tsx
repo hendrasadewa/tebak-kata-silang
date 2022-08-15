@@ -1,10 +1,18 @@
+import dayjs from 'dayjs';
+
 interface Props {
   onClose: () => void;
+  startTime?: Date;
+  stopTime?: Date;
 }
 
-function WinModal({ onClose }: Props) {
+function WinModal({ onClose, startTime, stopTime }: Props) {
+  const diffSec = dayjs(stopTime).diff(startTime, 's');
+
+  const timeMessage = `⏱ ${Math.round(diffSec / 60)} menit, ${diffSec} detik`;
+
   const template = {
-    text: `Saya berhasil menyelesaikan soal hari ini di #TebakKataSilang, mainkan di ${window.location.href} - @sadevva_`,
+    text: `Saya berhasil menyelesaikan soal hari ini di #TebakKataSilang ${timeMessage}, mainkan di ${window.location.href} - @sadevva_`,
   };
   const url = new URL('https://twitter.com/intent/tweet');
   url.search = new URLSearchParams(template).toString();
@@ -12,10 +20,13 @@ function WinModal({ onClose }: Props) {
   return (
     <div>
       <div className="mt-2 flex flex-col gap-4">
-        <p>Selamat, Kamu berhasil menebak seluruh kata yang ada! </p>
+        <p>
+          Selamat, Kamu berhasil menebak seluruh kata yang ada dalam waktu{' '}
+          <span>{timeMessage}</span>{' '}
+        </p>
         <p>
           Bagikan hasil ini ke twitter, dan mari kembali esok hari untuk soal
-          yang lebih menantang
+          yang lebih menantang.
         </p>
       </div>
 

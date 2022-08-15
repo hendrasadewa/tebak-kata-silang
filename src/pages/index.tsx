@@ -38,8 +38,8 @@ const Home: NextPage<Props> = ({ answer, keyboardLayout, gameid }) => {
   const [modalState, modalActions] = useModalState(gameState.result);
 
   useEffect(() => {
-    window.localStorage.setItem('gameid', gameid)
-  }, [gameid])
+    window.localStorage.setItem('gameid', gameid);
+  }, [gameid]);
 
   const handleOpenHowtoPlay = () => {
     modalActions.openModal(GameModals.help);
@@ -71,6 +71,8 @@ const Home: NextPage<Props> = ({ answer, keyboardLayout, gameid }) => {
         modalType={modalState.modalType}
         onClose={modalActions.closeModal}
         title={modalState.modalTitle}
+        startTime={gameState.startTime}
+        stopTime={gameState.stopTime}
       />
     </div>
   );
