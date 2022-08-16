@@ -10,7 +10,7 @@ interface Props {
 function WinModal({ onClose, startTime, stopTime, chances }: Props) {
   const diffSec = dayjs(stopTime).diff(startTime, 's');
 
-  const timeMessage = `⏱ ${Math.floor(diffSec / 60)} menit, ${diffSec} detik`;
+  const timeMessage = `⏱ ${diffSec} detik`;
   const chanceMessage = `Sisa kesempatan: ${chances}`;
   const template = {
     text: `Saya berhasil menyelesaikan soal hari ini di #TebakKataSilang ${timeMessage} dan ${chanceMessage}, mainkan di ${window.location.href} - @sadevva_`,
