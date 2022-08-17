@@ -1,14 +1,12 @@
 import { Answer } from '../types/Words';
 
 export const mockAnswer: Answer = [
-  ['m', 'e', 'r', 'd', 'e', 'k', 'a'],
-  ['e', null, 'a', null, null, 'u', null],
-  ['r', null, 'n', null, null, 'r', null],
-  ['a', 'n', 'g', 'k', 'a', 's', 'a'],
-  ['h', null, 'k', null, null, 'i', null],
-  [null, 'l', 'a', 'r', 'a', null, null],
-  [null, null, null, null, 'b', null, null],
-  [null, 'k', 'i', 't', 'a', null, null],
-  [null, null, null, null, 'd', null, null],
-  [null, 'p', 'u', 't', 'i', 'h', null],
+  ['s', 'o', 'e', 'k', 'a', 'r', 'n', 'o'],
+  [null, null, null, 'a', null, null, null, 'k'],
+  [null, 'k', null, 's', null, null, null, 'n'],
+  ['p', 'o', 'l', 'i', 's', 'i', null, 'u'],
+  [null, 'd', null, 'h', null, 'm', null, 'm'],
+  [null, 'r', null, null, null, 'l', null, null],
+  ['p', 'a', 'r', 't', 'i', 'k', 'e', 'l'],
+  [null, 't', null, null, null, 'k', null, null],
 ];
