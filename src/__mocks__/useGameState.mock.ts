@@ -5,8 +5,8 @@ export const mockAnswer: Answer = [
   [null, null, null, 'a', null, null, null, 'k'],
   [null, 'k', null, 's', null, null, null, 'n'],
   ['p', 'o', 'l', 'i', 's', 'i', null, 'u'],
-  [null, 'd', null, 'h', null, 'm', null, 'm'],
-  [null, 'r', null, null, null, 'l', null, null],
+  [null, 'd', null, 'h', null, null, null, 'm'],
+  [null, 'r', null, null, null, null, null, null],
   ['p', 'a', 'r', 't', 'i', 'k', 'e', 'l'],
-  [null, 't', null, null, null, 'k', null, null],
+  [null, 't', null, null, null, null, null, null],
 ];
